@@ -8,11 +8,7 @@ from app.authentication import AuthError, requires_auth
 main = Blueprint('main' , __name__)
 
 @main.route("/")
-@requires_auth()
-def index(payload):
-    print("----------------")
-    print(payload)
-    print("----------------")
+def index():
     all_books = Books.query.all()
     return render_template("index.html" , data = all_books)
 

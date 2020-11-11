@@ -11,6 +11,9 @@ wtforms = "*"
 jose = "*"
 jwt = "*"
 python-jose = "*"
+requests = "*"
+authlib = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

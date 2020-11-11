@@ -1,9 +1,14 @@
-from flask import Blueprint , render_template , request , flash , url_for
+from flask import Blueprint , render_template , request , flash , url_for , jsonify , redirect , session
 from app.models import Auth, Books
-from app import db
+from app import db , auth0
 from .forms import AddBook, AddAuth
 from app.authentication import AuthError, requires_auth
 
+from werkzeug.exceptions import HTTPException
+from dotenv import load_dotenv, find_dotenv
+from six.moves.urllib.parse import urlencode
+
+ 
  
 admin = Blueprint('admin' , __name__  , url_prefix='/admin')
  
@@ -136,3 +141,19 @@ def authors():
     all_auth = Auth.query.all()
     return render_template("auth.html" , data=all_auth)
   
+
+@admin.route('/callback' , methods=['GET' , 'POST'])
+def callback_handling():
+    auth0.authorize_access_token()
+    resp = auth0.get('userinfo')
+    userinfo = resp.json()
+
+    session[constants.JWT_PAYLOAD] = userinfo
+    session[constants.PROFILE_KEY] = {
+        'user_id': userinfo['sub'],
+        'name': userinfo['name'],
+        'picture': userinfo['picture']
+    }
+    print("OKKKKKKK")
+    print(userinfo['name'])
+    return "redirect('/dashboard')"
