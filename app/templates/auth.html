@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% for data in data %}
+    <div class="card">
+        <div class="card-body">
+            <h4>{{ data.name }}</h4>
+            <h6>ID: {{ data.id }}</h6>
+            <h6>{{ data.des }}</h6>
+            <p>Country : {{ data.county }}</p>
+        <a href="{{ url_for('admin.update_auth', auth_id=data.id) }}" >
+            <button class="btn btn-outline-info" >Update</button>
+        </a>
+        <a href="{{ url_for('admin.auth_delete', auth_id=data.id) }}" >
+            <button class="btn btn-danger" >Delete</button>
+        </a>
+        <br>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+{% endblock %}
