@@ -29,6 +29,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
       </li>
+      {% if is_login  %}
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('admin.add_book') }}" >Add Book</a>
       </li>
@@ -39,13 +40,13 @@
         <a class="nav-link" href="{{ url_for('admin.authors') }}" >Authors</a>
       </li>   
       <li class="nav-item">
-        <a class="nav-link" href="https://mom-test1.eu.auth0.com/authorize?audience=proj4&response_type=token&client_id=KaX7yLIzgIC8UD6Iq0LBA0Zn77ZqP9Y1&redirect_uri=http://localhost:5000/admin/callback
-        " >LogIn</a>
+        <a class="nav-link" href="{{ url_for('logout') }}" >Log Out</a>
       </li>
+      {% else %}
       <li class="nav-item">
-        <a class="nav-link" href="https://mom-test1.eu.auth0.com/v2/logout?returnTo=http://localhost:5000&client_id=KaX7yLIzgIC8UD6Iq0LBA0Zn77ZqP9Y1
-        " >Log Out</a>
+        <a class="nav-link" href="{{ url_for('login') }}" >LogIn</a>
       </li> 
+      {% endif %}
     </ul>
   </div>  
 </nav>
